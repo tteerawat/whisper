@@ -32,7 +32,7 @@ defmodule Whisper.Web do
 
       alias Whisper.Repo
       import Ecto
-      import Ecto.Query, only: [from: 1, from: 2]
+      import Ecto.Query
 
       import Whisper.Router.Helpers
       import Whisper.Gettext

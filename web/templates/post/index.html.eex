@@ -1,5 +1,7 @@
 <h2>Listing posts</h2>
 
+<%= render "search_form.html", query: query_params(@conn) %>
+
 <table class="table">
   <thead>
     <tr>
@@ -14,7 +16,7 @@
     <tr>
       <td><i class="<%= post_icon(post) %>"></i></td>
       <td><%= link post.title, to: post.url %></td>
-      <td><%= post.url %></td>
+      <td><%= post_url(post) %></td>
       <td class="text-right">
         <%= link "Show", to: post_path(@conn, :show, post), class: "btn btn-default btn-xs" %>
         <%= link "Edit", to: post_path(@conn, :edit, post), class: "btn btn-default btn-xs" %>

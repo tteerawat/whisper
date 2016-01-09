@@ -5,10 +5,20 @@ defmodule Whisper.PostController do
 
   plug :scrub_params, "post" when action in [:create, :update]
 
-  def index(conn, _params) do
-    posts = Repo.all(Post)
+  def index(conn, params) do
+    posts = get_posts(params)
     render(conn, "index.html", posts: posts)
   end
+
+  defp get_posts(params) do
+    query_for(params) |> order_by(desc: :inserted_at) |> Repo.all
+  end
+
+  defp query_for(%{"q" => q}) do
+    query = "%" <> String.strip(q) <> "%"
+    Post |> where([p], ilike(p.title, ^query))
+  end
+  defp query_for(_), do: Post
 
   def new(conn, _params) do
     changeset = Post.changeset(%Post{})
