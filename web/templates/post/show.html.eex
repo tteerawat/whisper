@@ -1,7 +1,6 @@
 <h2>Show post</h2>
 
 <ul>
-
   <li>
     <strong>Title:</strong>
     <%= @post.title %>
@@ -12,6 +11,10 @@
     <%= @post.url %>
   </li>
 
+  <li>
+    <strong>Favorite:</strong>
+    <%= @post.favorite %>
+  </li>
 </ul>
 
 <%= link "Edit", to: post_path(@conn, :edit, @post) %>

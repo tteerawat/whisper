@@ -18,6 +18,12 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :favorite, class: "control-label" %>
+    <%= checkbox f, :favorite %>
+    <%= error_tag f, :favorite %>
+  </div>
+
+  <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -4,12 +4,13 @@ defmodule Whisper.Post do
   schema "posts" do
     field :title, :string
     field :url, :string
+    field :favorite, :boolean
 
     timestamps
   end
 
   @required_fields ~w(title url)
-  @optional_fields ~w()
+  @optional_fields ~w(favorite)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

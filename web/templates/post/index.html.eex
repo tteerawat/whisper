@@ -3,6 +3,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th></th>
       <th>Title</th>
       <th>Url</th>
       <th></th>
@@ -11,6 +12,7 @@
   <tbody>
   <%= for post <- @posts do %>
     <tr>
+      <td><i class="<%= post_icon(post) %>"></i></td>
       <td><%= link post.title, to: post.url %></td>
       <td><%= post.url %></td>
       <td class="text-right">
