@@ -10,7 +10,12 @@ defmodule Whisper.PostView do
   end
 
   def post_url(post) do
-    String.slice(post.url, 0, 50) <> "..."
+    url = post.url
+    if String.length(url) <= 50 do
+      url
+    else
+      String.slice(url, 0, 46) <> "..."
+    end
   end
 
   def query_params(conn) do
