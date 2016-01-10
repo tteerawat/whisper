@@ -35,10 +35,9 @@ defmodule Whisper.PostControllerTest do
     assert html_response(conn, 200) =~ "New post"
   end
 
-  test "shows chosen resource", %{conn: conn} do
-    post = Post.changeset(%Post{}, @valid_attrs) |> Repo.insert!
+  test "shows chosen resource", %{conn: conn, post: post} do
     conn = get conn, post_path(conn, :show, post)
-    assert html_response(conn, 200) =~ "Awesome Elixir"
+    assert html_response(conn, 200) =~ "test title"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
