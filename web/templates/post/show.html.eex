@@ -10,6 +10,11 @@
     <strong>Favorite:</strong>
     <%= @post.favorite %>
   </li>
+
+  <li>
+    <strong>Link:</strong>
+    <%= link "visit the page", to: @post.url, target: "_blank" %>
+  </li>
 </ul>
 
 <%= link "Edit", to: post_path(@conn, :edit, @post) %>
