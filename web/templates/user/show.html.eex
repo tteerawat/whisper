@@ -1,0 +1,5 @@
+<h2><%= @user.email %></h2>
+
+<%= button "Logout", to: session_path(@conn, :delete, @current_user),
+  method: :delete,
+  class: "btn btn-default" %>

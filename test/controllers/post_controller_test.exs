@@ -1,7 +1,16 @@
 defmodule Whisper.PostControllerTest do
   use Whisper.ConnCase
 
-  alias Whisper.Post
+  alias Whisper.{Post, User}
+
+  setup do
+    user = Repo.insert!(%User{email: "test@gmail.com", password: "1qazxsw2"})
+    post = Repo.insert!(%Post{title: "test title", url: "http://test.com", user_id: user.id})
+    conn = assign(conn, :current_user, user)
+
+    {:ok, user: user, post: post, conn: conn}
+  end
+
   @valid_attrs %{title: "Awesome Elixir", url: "https://www.awesome-elixir.com"}
   @invalid_attrs %{}
 
@@ -38,27 +47,23 @@ defmodule Whisper.PostControllerTest do
     end
   end
 
-  test "renders form for editing chosen resource", %{conn: conn} do
-    post = Repo.insert! %Post{}
+  test "renders form for editing chosen resource", %{conn: conn, post: post} do
     conn = get conn, post_path(conn, :edit, post)
     assert html_response(conn, 200) =~ "Edit post"
   end
 
-  test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    post = Repo.insert! %Post{}
+  test "updates chosen resource and redirects when data is valid", %{conn: conn, post: post} do
     conn = put conn, post_path(conn, :update, post), post: @valid_attrs
     assert redirected_to(conn) == post_path(conn, :show, post)
     assert Repo.get_by(Post, @valid_attrs)
   end
 
-  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    post = Repo.insert! %Post{}
-    conn = put conn, post_path(conn, :update, post), post: @invalid_attrs
+  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, post: post} do
+    conn = put conn, post_path(conn, :update, post), post: %{"title" => "", "url" => ""}
     assert html_response(conn, 200) =~ "Edit post"
   end
 
-  test "deletes chosen resource", %{conn: conn} do
-    post = Repo.insert! %Post{}
+  test "deletes chosen resource", %{conn: conn, post: post} do
     conn = delete conn, post_path(conn, :delete, post)
     assert redirected_to(conn) == post_path(conn, :index)
     refute Repo.get(Post, post.id)

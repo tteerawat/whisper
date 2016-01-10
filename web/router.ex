@@ -7,6 +7,7 @@ defmodule Whisper.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Whisper.Auth, repo: Whisper.Repo
   end
 
   pipeline :api do
@@ -14,10 +15,12 @@ defmodule Whisper.Router do
   end
 
   scope "/", Whisper do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser] # Use the default browser stack
 
     get "/", PostController, :index
     resources "/posts", PostController
+    resources "/users", UserController, only: [:show, :new, :create]
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
   # Other scopes may use custom stacks.

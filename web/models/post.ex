@@ -5,6 +5,7 @@ defmodule Whisper.Post do
     field :title, :string
     field :url, :string
     field :favorite, :boolean
+    belongs_to :user, Whisper.User
 
     timestamps
   end

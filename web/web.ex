@@ -36,6 +36,8 @@ defmodule Whisper.Web do
 
       import Whisper.Router.Helpers
       import Whisper.Gettext
+
+      import Whisper.Auth, only: [authenticate_user: 2, check_if_already_logged_in?: 2]
     end
   end
 

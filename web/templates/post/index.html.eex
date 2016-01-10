@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th></th>
+      <th>UserId</th>
       <th>Title</th>
       <th>Url</th>
       <th></th>
@@ -15,6 +16,7 @@
   <%= for post <- @posts do %>
     <tr>
       <td><i class="<%= post_icon(post) %>"></i></td>
+      <td><%= post.user_id %></td>
       <td><%= link post.title, to: post.url, target: "_blank" %></td>
       <td><%= post_url(post) %></td>
       <td class="text-right">
