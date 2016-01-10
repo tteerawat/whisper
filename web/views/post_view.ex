@@ -18,6 +18,12 @@ defmodule Whisper.PostView do
     end
   end
 
+  def check_user(user, post, fun) do
+    if user.id == post.user_id do
+      fun.()
+    end
+  end
+
   def query_params(conn) do
     conn.params["q"]
   end

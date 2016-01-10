@@ -12,7 +12,10 @@ defmodule Whisper.PostController do
   end
 
   defp get_posts(params) do
-    query_for(params) |> order_by(desc: :inserted_at) |> Repo.all
+    query_for(params)
+    |> preload(:user)
+    |> order_by(desc: :inserted_at)
+    |> Repo.all
   end
 
   defp query_for(%{"q" => q}) do

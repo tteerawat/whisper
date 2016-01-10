@@ -6,7 +6,6 @@
   <thead>
     <tr>
       <th></th>
-      <th>UserId</th>
       <th>Title</th>
       <th>Url</th>
       <th></th>
@@ -16,13 +15,14 @@
   <%= for post <- @posts do %>
     <tr>
       <td><i class="<%= post_icon(post) %>"></i></td>
-      <td><%= post.user_id %></td>
       <td><%= link post.title, to: post.url, target: "_blank" %></td>
       <td><%= post_url(post) %></td>
       <td class="text-right">
-        <%= link "Show", to: post_path(@conn, :show, post), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: post_path(@conn, :edit, post), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: post_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= check_user @current_user, post, fn -> %>
+          <%= link "Show", to: post_path(@conn, :show, post), class: "btn btn-default btn-xs" %>
+          <%= link "Edit", to: post_path(@conn, :edit, post), class: "btn btn-default btn-xs" %>
+          <%= link "Delete", to: post_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <% end %>
       </td>
     </tr>
   <% end %>
