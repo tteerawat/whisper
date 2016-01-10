@@ -1,0 +1,16 @@
+<ul class="list-group">
+  <li class="list-group-item active">
+    <span class="badge"><%= Enum.count(@user.posts) %></span>
+    All Posts
+  </li>
+  <%= for post <- @user.posts do %>
+    <li class="list-group-item">
+      <strong><%= link post.title, to: post_path(@conn, :show, post) %></strong>
+      <div class="pull-right">
+        <%= link to: post_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"] do %>
+          <i class="fa fa-trash-o"></i>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>

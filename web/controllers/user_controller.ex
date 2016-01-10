@@ -25,7 +25,7 @@ defmodule Whisper.UserController do
   end
 
   defp user_with_posts(user) do
-    Repo.preload(user, posts: from(p in Post, order_by: p.inserted_at))
+    Repo.preload(user, posts: from(p in Post, order_by: [desc: :inserted_at]))
   end
 
   def create(conn, %{"user" => user_params}) do
