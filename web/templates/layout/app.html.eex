@@ -15,11 +15,18 @@
 
   <body>
     <div class="container">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <%= link "WHISPER", to: "/", class: "navbar-brand" %>
+          </div>
+        </div>
+      </nav>
+
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
       <main role="main">
-        <h1>Whisper</h1>
         <%= render @view_module, @view_template, assigns %>
       </main>
 

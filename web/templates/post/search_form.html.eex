@@ -1,7 +1,10 @@
 <div class="row">
   <div class="col-md-6">
-    <%= form_tag "/posts", method: "get" do %>
+    <%= form_tag "/posts", method: "get", class: "input-group" do %>
       <input type="text" name="q" class="form-control" placeholder="Search..." value="<%= @query %>">
+      <span class="input-group-btn">
+        <%= submit "Search", class: "btn btn-default" %>
+      </span>
     <% end %>
   </div>
   <div class="col-md-6"></div>

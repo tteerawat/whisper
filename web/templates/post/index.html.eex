@@ -15,7 +15,7 @@
   <%= for post <- @posts do %>
     <tr>
       <td><i class="<%= post_icon(post) %>"></i></td>
-      <td><%= link post.title, to: post.url %></td>
+      <td><%= link post.title, to: post.url, target: "_blank" %></td>
       <td><%= post_url(post) %></td>
       <td class="text-right">
         <%= link "Show", to: post_path(@conn, :show, post), class: "btn btn-default btn-xs" %>
