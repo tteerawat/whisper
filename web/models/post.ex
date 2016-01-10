@@ -10,7 +10,7 @@ defmodule Whisper.Post do
     timestamps
   end
 
-  @required_fields ~w(title url)
+  @required_fields ~w(title url user_id)
   @optional_fields ~w(favorite)
 
   @doc """

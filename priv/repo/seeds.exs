@@ -10,10 +10,15 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias Whisper.{Repo, Post}
+alias Whisper.{Repo, Post, User}
 
 Repo.delete_all(Post)
+Repo.delete_all(User)
 
-Repo.insert!(%Post{title: "Awesome Ruby", url: "https://github.com/markets/awesome-ruby", favorite: true})
-Repo.insert!(%Post{title: "Awesome Elixir", url: "https://github.com/h4cc/awesome-elixir", favorite: true})
-Repo.insert!(%Post{title: "Awesome Rust", url: "https://github.com/kud1ing/awesome-rust"})
+changeset = User.registration_changeset(%User{},
+  %{"email" => "test@testemail.com", "password" => "1qazxsw2"})
+user = Repo.insert!(changeset)
+
+Repo.insert!(%Post{user_id: user.id, title: "Awesome Ruby", url: "https://github.com/markets/awesome-ruby", favorite: true})
+Repo.insert!(%Post{user_id: user.id, title: "Awesome Elixir", url: "https://github.com/h4cc/awesome-elixir", favorite: true})
+Repo.insert!(%Post{user_id: user.id, title: "Awesome Rust", url: "https://github.com/kud1ing/awesome-rust"})
