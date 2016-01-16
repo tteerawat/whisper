@@ -47,9 +47,10 @@ defmodule Whisper.PostController do
     end
   end
 
-  def show(conn, %{"id" => id}, _user) do
-    post = Repo.get!(Post, id)
-    render(conn, "show.html", post: post)
+  def show(conn, %{"id" => post_id}, _user) do
+    authorize_user conn, post_id, fn(post) ->
+      render(conn, "show.html", post: post)
+    end
   end
 
   def edit(conn, %{"id" => post_id}, _user) do
@@ -91,7 +92,7 @@ defmodule Whisper.PostController do
     current_user_id = conn.assigns.current_user.id
     if post.user_id != current_user_id do
       conn
-      |> put_flash(:error, "This is not your post!!!")
+      |> put_flash(:error, "Ahem, this is not your post!!!")
       |> redirect(to: post_path(conn, :index))
     else
       fun.(post)

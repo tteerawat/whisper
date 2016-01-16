@@ -5,20 +5,44 @@ defmodule Whisper.PostTest do
 
   setup do
     user = Repo.insert!(%User{email: "test@gmail.com", password: "1qazxsw2"})
-
     {:ok, user: user}
   end
 
-  @valid_attrs %{title: "Awesome Elixir", url: "https://awesome-elixir.com"}
-  @invalid_attrs %{}
+  test "that a post can't be created without user_id" do
+    changeset = Post.changeset(%Post{},
+      %{title: "hello world", url: "http://helloworld.com"})
 
-  test "changeset with valid attributes", %{user: user} do
-    changeset = Post.changeset(%Post{}, Map.merge(@valid_attrs, %{user_id: user.id}))
-    assert changeset.valid?
+    refute changeset.valid?
+    assert changeset.errors[:user_id] == "can't be blank"
   end
 
-  test "changeset with invalid attributes" do
-    changeset = Post.changeset(%Post{}, @invalid_attrs)
+  test "that a post can't be created with blank title or url", %{user: user} do
+    changeset =
+      user
+      |> build_assoc(:posts)
+      |> Post.changeset(%{})
+
     refute changeset.valid?
+    assert changeset.errors[:title] == "can't be blank"
+    assert changeset.errors[:url] == "can't be blank"
+  end
+
+  test "that a post can't be created with invalid url format", %{user: user} do
+    changeset =
+      user
+      |> build_assoc(:posts)
+      |> Post.changeset(%{title: "helloworld", url: "helloworld"})
+
+    refute changeset.valid?
+    assert changeset.errors[:url] == "has invalid format"
+  end
+
+  test "that a post can be created", %{user: user} do
+    changeset =
+      user
+      |> build_assoc(:posts)
+      |> Post.changeset(%{title: "helloworld", url: "http://helloworld.com"})
+
+    assert changeset.valid?
   end
 end

@@ -13,7 +13,7 @@ defmodule Whisper.SessionController do
         conn
         |> put_flash(:info, "Welcome back! #{email}")
         |> redirect(to: post_path(conn, :index))
-      {:error, reason, _conn} ->
+      {:error, _reason, _conn} ->
         conn
         |> put_flash(:error, "Invalid email/password combination")
         |> render("new.html")

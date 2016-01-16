@@ -3,16 +3,34 @@ defmodule Whisper.UserTest do
 
   alias Whisper.User
 
-  @valid_attrs %{email: "test@gmail.com", password: "1qazxsw2"}
-  @invalid_attrs %{}
+  test "that user can't be created with blank email or password" do
+    changeset = User.registration_changeset(%User{}, %{})
 
-  test "changeset with valid attributes" do
-    changeset = User.changeset(%User{}, @valid_attrs)
-    assert changeset.valid?
+    refute changeset.valid?
+    assert changeset.errors[:email] == "can't be blank"
+    assert changeset.errors[:password] == "can't be blank"
   end
 
-  test "changeset with invalid attributes" do
-    changeset = User.changeset(%User{}, @invalid_attrs)
+  test "that user can't be created with invalid email" do
+    changeset = User.registration_changeset(%User{},
+      %{email: "helloworld", password: "1qazxsw2"})
+
     refute changeset.valid?
+    assert changeset.errors[:email] == "has invalid format"
+  end
+
+  test "that password must contains at least 8 characters" do
+    changeset = User.registration_changeset(%User{},
+      %{email: "test@gmail.com", password: "123"})
+
+    refute changeset.valid?
+    assert changeset.errors[:password] == {"should be at least %{count} character(s)", [count: 8]}
+  end
+
+  test "that user can be created" do
+    changeset = User.registration_changeset(%User{},
+      %{email: "test@gmail.com", password: "12345678"})
+
+    assert changeset.valid?
   end
 end
