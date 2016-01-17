@@ -26,6 +26,12 @@ config :whisper, Whisper.Repo,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :exq,
+  host: System.get_env("REDIS_HOST"),
+  port: String.to_integer(System.get_env("REDIS_PORT")),
+  password: System.get_env("REDIS_PASSWORD"),
+  namespace: "exq"
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
