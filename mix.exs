@@ -19,7 +19,7 @@ defmodule Whisper.Mixfile do
   def application do
     [mod: {Whisper, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin, :mailgun]]
+                    :phoenix_ecto, :postgrex, :comeonin, :mailgun, :exq]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,7 +38,8 @@ defmodule Whisper.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.0"},
-     {:mailgun, "~> 0.1.2"}]
+     {:mailgun, "~> 0.1.2"},
+     {:exq, "~> 0.6.2"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

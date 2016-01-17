@@ -34,10 +34,16 @@ defmodule Whisper.UserController do
       {:ok, user} ->
         conn
         |> Whisper.Auth.login(user)
+        |> send_welcome_email(user)
         |> put_flash(:info, "#{user.email} created!")
         |> redirect(to: post_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
+  end
+
+  defp send_welcome_email(conn, user) do
+    Exq.enqueue(Exq, "default", SendWelcomeEmailWorker, [user.email])
+    conn
   end
 end
