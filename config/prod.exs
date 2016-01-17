@@ -28,7 +28,7 @@ config :logger, level: :info
 
 config :exq,
   host: System.get_env("REDIS_HOST"),
-  port: String.to_integer(System.get_env("REDIS_PORT")),
+  port: 22489,
   password: System.get_env("REDIS_PASSWORD"),
   namespace: "exq"
 

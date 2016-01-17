@@ -6,7 +6,6 @@ defmodule Whisper.UserController do
   plug :authenticate_user when action in [:show]
   plug :check_if_already_logged_in? when action in [:new]
 
-
   def new(conn, _params) do
     changeset = User.changeset(%User{})
     render(conn, "new.html", changeset: changeset)
