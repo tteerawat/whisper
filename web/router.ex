@@ -23,6 +23,8 @@ defmodule Whisper.Router do
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
+  forward "/beaker", Beaker.Web
+
   # Other scopes may use custom stacks.
   # scope "/api", Whisper do
   #   pipe_through :api
