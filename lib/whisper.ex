@@ -7,12 +7,8 @@ defmodule Whisper do
     import Supervisor.Spec, warn: false
 
     children = [
-      # Start the endpoint when the application starts
       supervisor(Whisper.Endpoint, []),
-      # Start the Ecto repository
       supervisor(Whisper.Repo, []),
-      # Here you could define other workers and supervisors as children
-      # worker(Whisper.Worker, [arg1, arg2, arg3]),
       worker(Whisper.Maintainer, [0])
     ]
 
