@@ -1,0 +1,15 @@
+{
+    "name": "Whisper1992",
+    "repository": "https://gitlab.com/teerawat/whisper1992",
+    "env": {
+        "ELM_COMPILE": "elm make web/elm/Main.elm --output web/static/vendor/elm/main.js"
+    },
+    "buildpacks": [
+        {
+            "url": "https://github.com/srid/heroku-buildpack-elm.git"
+        },
+        {
+            "url": "https://github.com/hone/heroku-buildpack-static"
+        }
+    ]
+}

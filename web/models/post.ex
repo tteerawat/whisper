@@ -4,7 +4,7 @@ defmodule Whisper.Post do
   schema "posts" do
     field :title, :string
     field :url, :string
-    field :favorite, :boolean
+    field :favorite, :boolean, default: false
     belongs_to :user, Whisper.User
 
     timestamps

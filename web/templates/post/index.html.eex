@@ -1,32 +1,3 @@
-<h2>Listing posts</h2>
-
-<%= render "search_form.html", query: query_params(@conn) %>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Title</th>
-      <th>Url</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-  <%= for post <- @posts do %>
-    <tr>
-      <td><i class="<%= post_icon(post) %>"></i></td>
-      <td><%= link post.title, to: post.url, target: "_blank" %></td>
-      <td><%= post_url(post) %></td>
-      <td class="text-right">
-        <%= check_user @current_user, post, fn -> %>
-          <%= link to: post_path(@conn, :show, post) do %>
-            <i class="fa fa-arrow-circle-right"></i>
-          <% end %>
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<div id="elm-app"></div>
 
 <%= link "New post", to: post_path(@conn, :new), class: "btn btn-default" %>
