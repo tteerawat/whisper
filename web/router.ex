@@ -25,8 +25,9 @@ defmodule Whisper.Router do
 
   forward "/beaker", Beaker.Web
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Whisper do
-  #   pipe_through :api
-  # end
+  scope "/api", Whisper.Api do
+    pipe_through :api
+
+    resources "/posts", PostController, only: [:index]
+  end
 end
