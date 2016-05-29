@@ -3,6 +3,7 @@ module Main exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Html.Lazy exposing (lazy)
 import Html.App as App
 import Http
 import Json.Decode as Json exposing (..)
@@ -115,32 +116,39 @@ postInfo post =
     ]
 
 
+postsHeader : Html Msg
+postsHeader =
+  thead
+    []
+    [ tr
+        []
+        [ th [] []
+        , th [] [ text "Title" ]
+        , th [] [ text "Url" ]
+        ]
+    ]
+
+
+postsBody : List Post -> Html Msg
+postsBody posts =
+  tbody [] ( List.map postInfo posts )
+
+
 postsTable : Model -> Html Msg
 postsTable model =
-  table
-    [ class "table table-striped" ]
-    [ thead
-        []
-        [ tr
-            []
-            [ th [] []
-            , th [] [ text "Title" ]
-            , th [] [ text "Url" ]
-            ]
-        ]
-
-    , tbody
-        []
-        ( model.posts
-            |> filterPosts model.keyword
-            |> List.map ( \post -> postInfo post ) )
-    ]
+  let posts' = model.posts |> filterPosts model.keyword
+  in
+    table
+      [ class "table table-striped" ]
+      [ postsHeader
+      , lazy postsBody posts'
+      ]
 
 
 view : Model -> Html Msg
 view model =
   div
-    [ class "main" ]
+    []
     [ header
     , br [] []
     , searchBar
