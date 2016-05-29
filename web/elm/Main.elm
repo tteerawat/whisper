@@ -24,6 +24,9 @@ main =
 -- model
 
 
+type Status = NoOp | Processing
+
+
 type alias Post =
   { title    : String
   , url      : String
@@ -34,12 +37,13 @@ type alias Post =
 type alias Model =
   { posts   : List Post
   , keyword : String
+  , status  : Status
   }
 
 
 init : ( Model, Cmd Msg )
 init =
-  ( { posts = [], keyword = "" }
+  ( { posts = [], keyword = "", status = Processing }
   , fetchPosts
   )
 
@@ -67,7 +71,7 @@ update msg model =
       ( { model | keyword = keyword }, Cmd.none )
 
     FetchSucceed posts ->
-      ( { model | posts = posts }, Cmd.none )
+      ( { model | posts = posts, status = NoOp }, Cmd.none )
 
     FetchFail error ->
       ( model, fetchPosts )
@@ -87,7 +91,7 @@ subscriptions model =
 
 
 header : Html Msg
-header = h2 [] [ text "Listing posts" ]
+header = h2 [ style [("margin-bottom", "20px")] ] [ text "Listing posts" ]
 
 
 searchBar : Html Msg
@@ -145,15 +149,31 @@ postsTable model =
       ]
 
 
+spinner : Html Msg
+spinner =
+  let
+    style' = style [("margin-top", "60px"), ("margin-bottom", "60px")]
+  in
+    div
+      [ class "text-center", style' ]
+      [ i [ class "fa fa-refresh fa-spin fa-3x fa-fw" ] [] ]
+
+
 view : Model -> Html Msg
 view model =
-  div
-    []
-    [ header
-    , br [] []
-    , searchBar
-    , postsTable model
-    ]
+  let
+    content =
+      if model.status == Processing then
+        spinner
+      else
+        postsTable model
+  in
+    div
+      []
+      [ header
+      , searchBar
+      , content
+      ]
 
 
 
