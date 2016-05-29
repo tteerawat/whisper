@@ -4,6 +4,7 @@ defmodule Whisper.Api.PostController do
   alias Whisper.Post
 
   def index(conn, _) do
-    render(conn, Whisper.PostView, "index.json", posts: Repo.all(Post))
+    posts = Post |> order_by(desc: :inserted_at) |> Repo.all
+    render(conn, Whisper.PostView, "index.json", posts: posts)
   end
 end

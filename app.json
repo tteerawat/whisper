@@ -1,6 +1,6 @@
 {
-    "name": "Whisper1992",
-    "repository": "https://gitlab.com/teerawat/whisper1992",
+    "name": "Whisper",
+    "repository": "https://github.com/teerawat1992/whisper.git",
     "env": {
         "ELM_COMPILE": "elm make web/elm/Main.elm --output web/static/vendor/elm/main.js"
     },
