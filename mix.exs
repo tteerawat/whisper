@@ -2,15 +2,17 @@ defmodule Whisper.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :whisper,
-     version: "0.0.2",
-     elixir: "~> 1.3.0",
-     elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix, :gettext] ++ Mix.compilers,
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     aliases: aliases,
-     deps: deps]
+    [
+      app:             :whisper,
+      version:         "0.0.3",
+      elixir:          "~> 1.3.0",
+      elixirc_paths:   elixirc_paths(Mix.env),
+      compilers:       [:phoenix, :gettext] ++ Mix.compilers,
+      build_embedded:  Mix.env == :prod,
+      start_permanent: Mix.env == :prod,
+      aliases:         aliases,
+      deps:            deps
+    ]
   end
 
   # Configuration for the OTP application.
@@ -30,8 +32,6 @@ defmodule Whisper.Mixfile do
         :postgrex,
         :comeonin,
         :mailgun,
-        :exq,
-        :httpoison
       ]
     ]
   end
@@ -44,18 +44,18 @@ defmodule Whisper.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.2.0"},
-     {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
-     {:postgrex, "~> 0.11.0"},
-     {:phoenix_html, "~> 2.3"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.9"},
-     {:cowboy, "~> 1.0"},
-     {:comeonin, "~> 2.0"},
-     {:mailgun, "~> 0.1.2"},
-     {:exq, "~> 0.6.3"},
-     {:httpoison, "~> 0.8.1"}]
+    [
+      {:phoenix, "~> 1.2.0"},
+      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix_ecto, "~> 3.0"},
+      {:postgrex, "~> 0.11.0"},
+      {:phoenix_html, "~> 2.3"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:gettext, "~> 0.9"},
+      {:cowboy, "~> 1.0"},
+      {:comeonin, "~> 2.0"},
+      {:mailgun, "~> 0.1.2"},
+    ]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
@@ -65,8 +65,10 @@ defmodule Whisper.Mixfile do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-     "ecto.reset": ["ecto.drop", "ecto.setup"],
-     "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+    [
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "test":       ["ecto.create --quiet", "ecto.migrate", "test"]
+    ]
   end
 end

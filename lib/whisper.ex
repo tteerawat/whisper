@@ -9,7 +9,8 @@ defmodule Whisper do
     children = [
       supervisor(Whisper.Endpoint, []),
       supervisor(Whisper.Repo, []),
-      worker(Whisper.Maintainer, [0])
+      worker(Whisper.Maintainer, [0]),
+      supervisor(Task.Supervisor, [[name: Whisper.TaskSupervisor]])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

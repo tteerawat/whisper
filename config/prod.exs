@@ -26,11 +26,8 @@ config :whisper, Whisper.Repo,
 # Do not print debug messages in production
 config :logger, level: :info
 
-config :exq,
-  host: System.get_env("REDIS_HOST"),
-  port: 9179,
-  password: System.get_env("REDIS_PASSWORD"),
-  namespace: "exq"
+config :whisper,
+  url_list: ["https://whisper1992.herokuapp.com/", "https://m-bucket.herokuapp.com/"]
 
 # ## SSL Support
 #

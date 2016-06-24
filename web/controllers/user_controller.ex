@@ -1,6 +1,5 @@
 defmodule Whisper.UserController do
-  use Whisper.Web, :controller
-
+  use   Whisper.Web, :controller
   alias Whisper.{User, Post}
 
   plug :authenticate_user when action in [:show]
@@ -14,8 +13,7 @@ defmodule Whisper.UserController do
   def show(conn, %{"id" => id}) do
     user = Repo.get!(User, id)
     if conn.assigns.current_user == user do
-      render(conn, "show.html",
-        user: user_with_posts(user))
+      render(conn, "show.html", user: user_with_posts(user))
     else
       conn
       |> put_flash(:error, "Ahem, this is not you!!!")
@@ -36,13 +34,16 @@ defmodule Whisper.UserController do
         |> send_welcome_email(user)
         |> put_flash(:info, "#{user.email} created!")
         |> redirect(to: post_path(conn, :index))
+
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
   defp send_welcome_email(conn, user) do
-    Exq.enqueue(Exq, "default", SendWelcomeEmailWorker, [user.email])
+    Task.Supervisor.async_nolink Whisper.TaskSupervisor, fn ->
+      Whisper.Mailer.send_welcome_email(to: user.email)
+    end
     conn
   end
 end
