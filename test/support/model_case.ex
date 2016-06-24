@@ -26,8 +26,10 @@ defmodule Whisper.ModelCase do
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Whisper.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Whisper.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(Whisper.Repo, {:shared, self()})
     end
 
     :ok

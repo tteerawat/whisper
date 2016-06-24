@@ -5,6 +5,8 @@
 # is restricted to this project.
 use Mix.Config
 
+config :whisper, ecto_repos: [Whisper.Repo]
+
 # Configures the endpoint
 config :whisper, Whisper.Endpoint,
   url: [host: "localhost"],

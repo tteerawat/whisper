@@ -1,8 +1,6 @@
 defmodule Whisper.Endpoint do
   use Phoenix.Endpoint, otp_app: :whisper
 
-  plug Beaker.Integrations.Phoenix
-
   socket "/socket", Whisper.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.

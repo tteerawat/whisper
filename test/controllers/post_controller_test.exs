@@ -6,7 +6,7 @@ defmodule Whisper.PostControllerTest do
   setup do
     user = Repo.insert!(%User{email: "test@gmail.com", password: "1qazxsw2"})
     post = Repo.insert!(%Post{title: "test title", url: "http://test.com", user_id: user.id})
-    conn = assign(conn, :current_user, user)
+    conn = assign(build_conn(), :current_user, user)
 
     {:ok, user: user, post: post, conn: conn}
   end

@@ -7,8 +7,8 @@ defmodule Whisper.UserTest do
     changeset = User.registration_changeset(%User{}, %{})
 
     refute changeset.valid?
-    assert changeset.errors[:email] == "can't be blank"
-    assert changeset.errors[:password] == "can't be blank"
+    assert changeset.errors[:email] == {"can't be blank", []}
+    assert changeset.errors[:password] == {"can't be blank", []}
   end
 
   test "that user can't be created with invalid email" do
@@ -16,7 +16,7 @@ defmodule Whisper.UserTest do
       %{email: "helloworld", password: "1qazxsw2"})
 
     refute changeset.valid?
-    assert changeset.errors[:email] == "has invalid format"
+    assert changeset.errors[:email] == {"has invalid format", []}
   end
 
   test "that password must contains at least 8 characters" do
