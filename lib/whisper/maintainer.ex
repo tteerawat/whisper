@@ -1,5 +1,5 @@
 defmodule Whisper.Maintainer do
-  @urls ["https://whisper1992.herokuapp.com/", "https://m-bucket.herokuapp.com/"]
+  @urls Application.get_env(:whisper, :url_list)
 
   use GenServer
 
@@ -9,14 +9,14 @@ defmodule Whisper.Maintainer do
 
   def init(number) do
     Process.send_after(self, :trigger, 1 * 1000)
+
     {:ok, number}
   end
 
   def handle_info(:trigger, number) do
-    for url <- @urls do
-      HTTPoison.get(url)
-    end
+    for url <- @urls, do: url |> to_char_list |> :httpc.request
     Process.send_after(self, :trigger, 25 * 60 * 1000)
+
     {:noreply, number + 1}
   end
 end
