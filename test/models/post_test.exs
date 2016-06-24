@@ -13,7 +13,7 @@ defmodule Whisper.PostTest do
       %{title: "hello world", url: "http://helloworld.com"})
 
     refute changeset.valid?
-    assert changeset.errors[:user_id] == "can't be blank"
+    assert changeset.errors[:user_id] == {"can't be blank", []}
   end
 
   test "that a post can't be created with blank title or url", %{user: user} do
@@ -23,8 +23,8 @@ defmodule Whisper.PostTest do
       |> Post.changeset(%{})
 
     refute changeset.valid?
-    assert changeset.errors[:title] == "can't be blank"
-    assert changeset.errors[:url] == "can't be blank"
+    assert changeset.errors[:title] == {"can't be blank", []}
+    assert changeset.errors[:url] == {"can't be blank", []}
   end
 
   test "that a post can't be created with invalid url format", %{user: user} do
@@ -34,7 +34,7 @@ defmodule Whisper.PostTest do
       |> Post.changeset(%{title: "helloworld", url: "helloworld"})
 
     refute changeset.valid?
-    assert changeset.errors[:url] == "has invalid format"
+    assert changeset.errors[:url] == {"has invalid format", []}
   end
 
   test "that a post can be created", %{user: user} do
