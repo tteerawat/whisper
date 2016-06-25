@@ -27,5 +27,6 @@ defmodule Whisper.Router do
     pipe_through :api
 
     resources "/posts", PostController, only: [:index]
+    resources "/benchmark", BenchmarkController, only: [:index]
   end
 end
