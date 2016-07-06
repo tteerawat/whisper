@@ -8,7 +8,7 @@ import Html.App as App
 import Http
 import Json.Decode as Json exposing (..)
 import Task
-import String exposing (toLower, contains)
+import String exposing (toLower, contains, trim)
 
 
 main =
@@ -51,7 +51,7 @@ init =
 filterPosts : String -> List Post -> List Post
 filterPosts keyword posts =
   posts
-    |> List.filter ( \post -> contains (toLower keyword) (toLower post.title) )
+    |> List.filter ( \post -> contains (normalizeString keyword) (normalizeString post.title) )
 
 
 
@@ -152,10 +152,10 @@ postsTable model =
 spinner : Html Msg
 spinner =
   let
-    style' = style [("margin-top", "60px"), ("margin-bottom", "60px")]
+    style' = [("margin-top", "60px"), ("margin-bottom", "60px")]
   in
     div
-      [ class "text-center", style' ]
+      [ class "text-center", style style' ]
       [ i [ class "fa fa-refresh fa-spin fa-3x fa-fw" ] [] ]
 
 
@@ -183,6 +183,11 @@ view model =
 postIcon : Post -> String
 postIcon post =
   if post.favorite then "fa fa-heart heart" else "fa fa-heart-o"
+
+
+normalizeString : String -> String
+normalizeString str =
+  str |> trim |> toLower
 
 
 
