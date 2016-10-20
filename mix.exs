@@ -55,6 +55,7 @@ defmodule Whisper.Mixfile do
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 2.0"},
       {:mailgun, "~> 0.1.2"},
+      {:credo, "~> 0.4.12", only: [:dev, :test]},
     ]
   end
 
