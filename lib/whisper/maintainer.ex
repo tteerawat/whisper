@@ -4,7 +4,7 @@ defmodule Whisper.Maintainer do
   use GenServer
 
   def start_link(number) do
-    GenServer.start_link(__MODULE__, number, name: __MODULE__ )
+    GenServer.start_link(__MODULE__, number, name: __MODULE__)
   end
 
   def init(number) do

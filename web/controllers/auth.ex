@@ -23,8 +23,8 @@ defmodule Whisper.Auth do
   end
 
   defp put_current_user(conn, user) do
-		conn |> assign(:current_user, user)
-	end
+    conn |> assign(:current_user, user)
+  end
 
   def authenticate_user(conn, _opts) do
     if conn.assigns.current_user do
