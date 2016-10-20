@@ -130,9 +130,6 @@ postInfo post =
         , td
             []
             [ text <| truncateString 50 post.url ]
-        , td
-            []
-            [ text post.inserted_at ]
         ]
 
 
@@ -144,7 +141,6 @@ postsHeader =
             []
             [ th [] [ text "Title" ]
             , th [] [ text "Url" ]
-            , th [] []
             ]
         ]
 
