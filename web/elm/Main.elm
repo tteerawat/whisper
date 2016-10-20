@@ -33,7 +33,7 @@ type Status
 type alias Post =
     { title : String
     , url : String
-    , favorite : Bool
+    , inserted_at : String
     }
 
 
@@ -122,9 +122,9 @@ postInfo : Post -> Html Msg
 postInfo post =
     tr
         []
-        [ td [] [ i [ class (postIcon post) ] [] ]
-        , td [] [ a [ href post.url, target "_blank" ] [ text post.title ] ]
+        [ td [] [ a [ href post.url, target "_blank" ] [ text post.title ] ]
         , td [] [ text post.url ]
+        , td [] [ text post.inserted_at ]
         ]
 
 
@@ -134,9 +134,9 @@ postsHeader =
         []
         [ tr
             []
-            [ th [] []
-            , th [] [ text "Title" ]
+            [ th [] [ text "Title" ]
             , th [] [ text "Url" ]
+            , th [] []
             ]
         ]
 
@@ -191,14 +191,6 @@ view model =
 -- utils
 
 
-postIcon : Post -> String
-postIcon post =
-    if post.favorite then
-        "fa fa-heart heart"
-    else
-        "fa fa-heart-o"
-
-
 normalizeString : String -> String
 normalizeString str =
     str |> trim |> toLower
@@ -222,7 +214,7 @@ decodePost =
     object3 Post
         ("title" := string)
         ("url" := string)
-        ("favorite" := bool)
+        ("inserted_at" := string)
 
 
 decodePosts : Decoder (List Post)

@@ -6,6 +6,10 @@ defmodule Whisper.PostView do
   end
 
   def render("show.json", %{post: post}) do
-    %{title: post.title, url: post.url, favorite: post.favorite}
+    %{
+      title: post.title,
+      url: post.url,
+      inserted_at: to_string(post.inserted_at),
+    }
   end
 end
