@@ -8,7 +8,7 @@ import Html.App as App
 import Http
 import Json.Decode as Json exposing (..)
 import Task
-import String exposing (toLower, contains, trim)
+import String
 
 
 main : Program Never
@@ -58,7 +58,9 @@ filterPosts : String -> List Post -> List Post
 filterPosts keyword posts =
     let
         matchedPost post =
-            contains (normalizeString keyword) (normalizeString post.title)
+            String.contains
+                (normalizeString keyword)
+                (normalizeString post.title)
     in
         List.filter matchedPost posts
 
@@ -122,9 +124,15 @@ postInfo : Post -> Html Msg
 postInfo post =
     tr
         []
-        [ td [] [ a [ href post.url, target "_blank" ] [ text post.title ] ]
-        , td [] [ text post.url ]
-        , td [] [ text post.inserted_at ]
+        [ td
+            []
+            [ a [ href post.url, target "_blank" ] [ text post.title ] ]
+        , td
+            []
+            [ text <| truncateString 50 post.url ]
+        , td
+            []
+            [ text post.inserted_at ]
         ]
 
 
@@ -193,7 +201,15 @@ view model =
 
 normalizeString : String -> String
 normalizeString str =
-    str |> trim |> toLower
+    str |> String.trim |> String.toLower
+
+
+truncateString : Int -> String -> String
+truncateString num str =
+    if String.length str <= num then
+        str
+    else
+        String.slice 0 (num - 3) str ++ "..."
 
 
 
