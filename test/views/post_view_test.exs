@@ -13,11 +13,11 @@ defmodule Whisper.PostViewTest do
 
   test "renders show.json", %{post: post} do
     assert render(Whisper.PostView, "show.json", post: post) ==
-      %{ title: post.title, url: post.url, favorite: post.favorite }
+      %{title: post.title, url: post.url, inserted_at: Ecto.DateTime.to_string(post.inserted_at)}
   end
 
   test "renders index.json", %{post: post} do
     assert render(Whisper.PostView, "index.json", posts: [post]) ==
-      [%{ title: post.title, url: post.url, favorite: post.favorite }]
+      [%{title: post.title, url: post.url, inserted_at: Ecto.DateTime.to_string(post.inserted_at)}]
   end
 end

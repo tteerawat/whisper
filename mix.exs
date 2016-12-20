@@ -53,9 +53,9 @@ defmodule Whisper.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.9"},
       {:cowboy, "~> 1.0"},
-      {:comeonin, "~> 2.0"},
+      {:comeonin, "~> 3.0"},
       {:mailgun, "~> 0.1.2"},
-      {:credo, "~> 0.4.12", only: [:dev, :test]},
+      {:credo, "~> 0.5", only: [:dev, :test]},
     ]
   end
 
